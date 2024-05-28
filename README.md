@@ -2,8 +2,54 @@
 
 Evento realizado entre os dias 01/02/2021 e 05/02/2021
 
-## Microsserviços e Comunicação Assíncrona Com Ruby e RabbitMQ na Prática
+## Integração de Aplicação Ruby on Rails com RabbitMQ usando Bunny
+### Visão Geral
+Este projeto demonstra a integração de uma aplicação Ruby on Rails com o RabbitMQ, utilizando a gem bunny para gerenciamento e comunicação de mensagens. O objetivo é consumir mensagens de uma fila RabbitMQ e criar ou atualizar registros de clientes na base de dados Rails conforme as mensagens são processadas.
 
+### Estrutura do Projeto
+- Modelo Customer:
+
+  - Representa um cliente na aplicação.
+  - Valida a presença de name e email.
+  - Garante a unicidade do email.
+  - Método create_or_update_from_bunny para criar ou atualizar um cliente a partir de uma mensagem.
+- Modelo ServiceOrder:
+
+  - Representa uma ordem de serviço que pertence a um cliente.
+  - Método generate para criar uma nova ordem de serviço associada a um cliente existente.
+- Classe BunnyConsumer:
+
+  - Processa mensagens recebidas do RabbitMQ.
+  - Verifica se o tipo de mensagem é válido.
+  - Cria ou atualiza registros de clientes conforme necessário.
+- Inicializador do Bunny:
+
+  - Configura a conexão Bunny com o RabbitMQ.
+  - Garante que a conexão seja fechada graciosamente ao encerrar a aplicação.
+- Script Bunny Consumer:
+
+  - Executa a lógica de consumir mensagens da fila RabbitMQ.
+  - Usa a classe BunnyConsumer para processar as mensagens.
+- Docker Compose:
+
+  - Configura um contêiner RabbitMQ com a interface de gerenciamento habilitada para facilitar a administração.
+### Fluxo de Trabalho
+- Inicialização do Ambiente:
+  - O RabbitMQ é inicializado usando Docker Compose.
+  - A aplicação Rails é configurada para se conectar ao RabbitMQ via Bunny.
+
+- Publicação de Mensagens:
+  - Mensagens são publicadas na fila RabbitMQ através de outras partes da aplicação ou sistemas externos.
+
+- Consumo de Mensagens:
+  - O script bunny_consumer.rb é executado para consumir mensagens da fila.
+  - As mensagens são processadas pela classe BunnyConsumer.
+  - Dependendo do tipo da mensagem, um cliente é criado ou atualizado no banco de dados Rails.
+
+- Administração do RabbitMQ:
+  - A interface de gerenciamento do RabbitMQ pode ser acessada para monitorar filas e mensagens.
+
+ 
 [Slide](https://drive.google.com/file/d/1SqsToLomUNzotukQRO7SqiehbwgfFYq4/view?usp=sharing)
 
 Implemente um microsserviço assíncrono trabalhando com rabbitMQ, um dos principais serviços de mensageria utilizado no mercado.
