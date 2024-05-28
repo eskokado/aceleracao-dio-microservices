@@ -8,6 +8,14 @@ Evento realizado entre os dias 01/02/2021 e 05/02/2021
 
 Implemente um microsserviço assíncrono trabalhando com rabbitMQ, um dos principais serviços de mensageria utilizado no mercado.
 
+## Docker rabbitmq
+```sh
+docker-compose up
+```
+### Config .env
+- update .env_sample to .env
+- update add with amqp://guest:guest@localhost:5672
+
 ## Microsserviço Users
 
 ### Setup do projeto
